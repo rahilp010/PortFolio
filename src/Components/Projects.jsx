@@ -13,7 +13,7 @@ const Projects = () => {
             Projects
          </div>
          <div className="blocks">
-            <div className="grid grid-cols-2 items-center text-center mx-20 border-2 border-[#e5e7eb] shadow-xl my-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 items-center text-center mx-4 sm:mx-20 border-2 border-[#e5e7eb] shadow-xl my-8 sm:my-16">
                <div className="p-12 bg-[#493D9E] text-white">
                   <i
                      className="fa-brands fa-github text-[200px] cursor-pointer hover:text-[#111] transition-all duration-300"
@@ -21,7 +21,7 @@ const Projects = () => {
                         webLinks('https://github.com/your-profile')
                      }></i>
                </div>
-               <div className="bg-[#11111127] h-full flex flex-col items-center justify-center ">
+               <div className="bg-[#11111127] h-full flex flex-col items-center justify-center my-7 sm:my-15">
                   <p className="font-bold text-4xl tracking-wide">
                      Click On GitHub
                   </p>

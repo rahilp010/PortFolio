@@ -38,14 +38,14 @@ const Skills = () => {
             id="skills">
             Skills
          </p>
-         <div className="mx-22 my-16 blocks">
-            <div className="grid lg:grid-cols-2 md:grid-cols-1 gap-10">
+         <div className="mx-4 sm:mx-22 my-5 sm:my-16 blocks">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
                {data.map((data, index) => (
                   <div key={index} className="p-5 border-2 border-[#e5e7eb] shadow-lg rounded-lg">
                      <p className="font-bold text-xl mb-7 text-[#493D9E]">
                         {data.name}
                      </p>
-                     <div className="flex flex-wrap gap-10 items-center">
+                     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-10 items-center">
                         {data.skills.map((skill, index) => (
                            <div
                               key={index}

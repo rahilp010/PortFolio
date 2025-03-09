@@ -28,15 +28,15 @@ const Profile = () => {
    ];
 
    return (
-      <div className="w-full px-10 md:px-20 mt-10">
+      <div className="w-full px-5 sm:px-10 lg:px-20 sm:mt-10">
          <div className="w-full py-5">
-            <div className="flex justify-between px-10 md:px-20 items-center relative rounded-2xl shadow-2xl border-2 p-10 md:p-14 h-auto md:h-96 fade-in">
+            <div className="flex justify-between px-5 sm:px-10 lg:px-20 items-center relative rounded-2xl shadow-2xl border-2 p-10 md:p-14 h-auto md:h-96 fade-in">
                <div>
                   <p className="font-medium text-lg">Hello,</p>
-                  <p className="font-bold text-5xl mt-2">
+                  <p className="font-bold text-4xl sm:text-5xl mt-2">
                      I'm <span className="text-[#A294F9]">Rahil Patel</span>
                   </p>
-                  <p className="font-bold text-3xl mt-3">
+                  <p className="font-bold text-xl sm:text-3xl mt-3">
                      Web Developer & Tech Enthusiast
                   </p>
 
@@ -56,17 +56,17 @@ const Profile = () => {
                <img
                   src={mine}
                   alt="Profile"
-                  className="w-[360px] h-[360px] bg-[#DAD2FF] rounded-tl-[300px] rounded-br-[300px] rounded-tr-[150px] rounded-bl-[150px] shadow-xl"
+                  className="w-0 lg:w-[360px] lg:h-[360px] md:w-[250px] md:h-[250px] bg-[#DAD2FF] rounded-tl-[300px] rounded-br-[300px] rounded-tr-[150px] rounded-bl-[150px] shadow-xl"
                />
             </div>
          </div>
 
          <div className="flex justify-center blocks">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 my-16">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-10 my-7 sm:my-16">
                {[cv, aboutMe, skills, projects, contact].map((image, index) => (
                   <div
                      key={index}
-                     className="relative w-36 h-36 group perspective cursor-pointer">
+                     className="relative w-28 h-28 sm:w-36 sm:h-36 group perspective cursor-pointer">
                      <div className="relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
                         <div className="absolute inset-0 flex flex-col justify-center items-center border-2 shadow-xl border-[#e5e7eb] p-3 rounded-3xl bg-white backface-hidden">
                            <img

@@ -1,6 +1,7 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import contactMe from '../assets/contact-me.png';
+import { sendEmail } from '../sendEmail';
 const Contact = () => {
    const initialValues = {
       firstName: '',
@@ -40,6 +41,13 @@ const Contact = () => {
       validationSchema: validationSchema,
       onSubmit: (value, action) => {
          console.log(value);
+         sendEmail(
+            value.firstName,
+            value.lastName,
+            value.mobileNo,
+            value.email,
+            value.message
+         );
          action.resetForm();
       },
    });
@@ -53,15 +61,16 @@ const Contact = () => {
                Contact Me
             </div>
 
-            <div className="blocks grid grid-cols-2 items-center mx-20 border-2 border-[#e5e7eb] shadow-xl my-10">
+            <div className="blocks grid grid-cols-1 sm:grid-cols-2 items-center mx-5 sm:mx-20 border-2 border-[#e5e7eb] shadow-xl my-4 sm:my-10">
                <div className="flex justify-center">
-                  <img src={contactMe} alt="" className="w-80 h-80" />
+                  <img src={contactMe} alt="" className="w-0 h-0 sm:w-50 sm:h-50 md:w-80 md:h-80" />
                </div>
                <div>
                   <form onSubmit={handleSubmit}>
-                     <div className=" mx-auto p-6 bg-gradient-to-r from-[#9eaffd] to-[#d7e8f2]
- shadow-lg">
-                        <div className="grid grid-cols-2 gap-4">
+                     <div
+                        className=" mx-auto p-6 bg-gradient-to-r from-[#9eaffd] to-[#d7e8f2]
+ shadow-lg" >
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                            <div>
                               <label className="block text-sm font-medium  ">
                                  First name *
@@ -109,7 +118,7 @@ const Contact = () => {
                            </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4 mt-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                            <div>
                               <label className="block text-sm font-medium">
                                  Mobile No
