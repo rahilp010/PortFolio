@@ -9,6 +9,7 @@ sgMail.setApiKey('SG.pbIBAoshR0aohZFN2A-67w.v-2dhjmirygCTbvdk-w8CIus70jTt2NevHye
 
 export const sendEmail = (firstName, lastName, mobileNo, email, message) => {
     console.log("Sending email to:", email);
+    
 
     const msg = {
         to: email, // Change to recipient
