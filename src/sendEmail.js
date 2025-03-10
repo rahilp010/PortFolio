@@ -1,16 +1,15 @@
 import sgMail from '@sendgrid/mail';
-// import dotenv from 'dotenv';
+import dotenv from 'dotenv';
 
 // Load environment variables
-// dotenv.config();
+dotenv.config({ path: './sendgrid.env' });
 
 // Set API Key securely
-sgMail.setApiKey('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');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export const sendEmail = (firstName, lastName, mobileNo, email, message) => {
     console.log("Sending email to:", email);
 
-    
 
     const msg = {
         to: email, // Change to recipient
