@@ -19,17 +19,14 @@ export const sendEmail = (firstName, lastName, mobileNo, email, message) => {
         html: `<strong>${firstName} ${lastName} is Interested in your portfolio he/she want to reach out you his/her number is ${mobileNo} he drop message ${message}</strong>`,
     };
 
-    sgMail
-        .send(msg)
-        .then(() => {
-            console.log('✅ Email sent successfully');
-        })
-        .catch((error) => {
-            console.error('❌ Error sending email:', error.message);
-            if (error.response) {
-                console.error('Error details:', error.response.body);
-            }
-        });
+    sgMail.send(msg).then(() => {
+        console.log('✅ Email sent successfully');
+    }).catch((error) => {
+        console.error('❌ Error sending email:', error.message);
+        if (error.response) {
+            console.error('Error details:', error.response.body);
+        }
+    });
 };
 
 // Call function with test values
