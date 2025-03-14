@@ -1,4 +1,9 @@
+import React from 'react';
+import { useDarkMode } from './DarkModeContext';
+
 const Skills = () => {
+   const { isDarkMode } = useDarkMode();
+
    const skills = [
       { name: 'html5', progress: 90 },
       { name: 'css3-alt', progress: 85 },
@@ -41,8 +46,15 @@ const Skills = () => {
          <div className="mx-4 sm:mx-22 my-5 sm:my-16 blocks">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
                {data.map((data, index) => (
-                  <div key={index} className="p-5 border-2 border-[#e5e7eb] shadow-lg rounded-lg">
-                     <p className="font-bold text-xl mb-7 text-[#493D9E]">
+                  <div
+                     key={index}
+                     className={`p-5 border-2 rounded-lg
+                  ${
+                     isDarkMode
+                        ? 'shadow-[0px_4px_25px_rgba(0,0,0,1)] border-[#212121] bg-[#212121] '
+                        : 'shadow-xl border-[#eeeff2]'
+                  }`}>
+                     <p className={`font-bold text-xl mb-7 ${isDarkMode ? 'text-[#ffff]' : 'text-[#A294F9]'}`}>
                         {data.name}
                      </p>
                      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-10 items-center">
