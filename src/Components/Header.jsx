@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Logo from '../assets/Logo.png';
+import Logo2 from '../assets/Logo2.png';
 import { IoMenu, IoClose } from 'react-icons/io5';
 import { useDarkMode } from './DarkModeContext';
 
@@ -41,7 +42,7 @@ const Header = () => {
                }}
                className="focus:outline-none">
                <img
-                  src={Logo} // Change this if you have a separate dark mode logo
+                  src={`${isDarkMode ? Logo2 : Logo}`} // Change this if you have a separate dark mode logo
                   alt="Logo"
                   className="w-20 h-14 mix-blend-hard-light transition-all duration-500 transform hover:scale-110"
                />
