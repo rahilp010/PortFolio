@@ -10,11 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@sendgrid/mail": "^8.1.4",
+    "@emailjs/browser": "^4.4.1",
     "@tailwindcss/vite": "^4.0.9",
     "dotenv": "^16.4.7",
     "formik": "^2.4.6",
-    "mailersend": "^2.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
