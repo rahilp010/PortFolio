@@ -1,11 +1,28 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import contactMe from '../assets/contact-me.png';
-import aboutMe from '../assets/aboutMe.png';
-import { sendEmail } from '../sendEmail.cjs';
 import { useDarkMode } from './DarkModeContext';
+import emailjs from '@emailjs/browser';
+import { useRef } from 'react';
 const Contact = () => {
    const { isDarkMode } = useDarkMode();
+
+   const form = useRef();
+
+   const sendEmailData = () => {
+      emailjs
+         .sendForm('service_rwp00vn', 'template_2v7885e', form.current, {
+            publicKey: 'igDqK2OLVPP6GgJs0',
+         })
+         .then(
+            () => {
+               console.log('SUCCESS!');
+            },
+            (error) => {
+               console.log('FAILED...', error.text);
+            }
+         );
+   };
 
    const initialValues = {
       firstName: '',
@@ -45,13 +62,7 @@ const Contact = () => {
       validationSchema: validationSchema,
       onSubmit: (value, action) => {
          console.log(value);
-         sendEmail(
-            value.firstName,
-            value.lastName,
-            value.mobileNo,
-            value.email,
-            value.message
-         );
+         sendEmailData();
          action.resetForm();
       },
    });
@@ -85,7 +96,7 @@ const Contact = () => {
                </div>
 
                <div>
-                  <form onSubmit={handleSubmit}>
+                  <form ref={form} onSubmit={handleSubmit}>
                      <div>
                         <div
                            className=" mx-auto p-6 h-full w-full rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-50"
