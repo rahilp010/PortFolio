@@ -8,18 +8,26 @@ import skills from '../assets/skills.png';
 import { useDarkMode } from './DarkModeContext';
 
 const Profile = () => {
-
    const { isDarkMode } = useDarkMode();
 
    const webLinks = (platform) => {
       const links = {
          linkedin: 'https://www.linkedin.com/in/rahil-patel-846800210/',
          github: 'https://github.com/rahilp010',
-         instagram: 'https://www.instagram.com/rahil_patel_010?igsh=MXFtenNyNHVyMmtwMw==',
+         instagram:
+            'https://www.instagram.com/rahil_patel_010?igsh=MXFtenNyNHVyMmtwMw==',
+         cv: 'https://github.com/rahilp010',
       };
 
       if (links[platform]) {
          window.open(links[platform], '_blank');
+      }
+
+      if (['about', 'skills', 'projects', 'contact'].includes(platform)) {
+         const section = document.getElementById(platform);
+         if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+         }
       }
    };
 
@@ -31,10 +39,17 @@ const Profile = () => {
       'Contact Me',
    ];
 
+   const buttonLinks = ['cv', 'about', 'skills', 'projects', 'contact'];
+
    return (
       <div className="w-full px-5 sm:px-10 lg:px-20 sm:mt-10 transition-all duration-500">
          <div className="w-full py-5">
-            <div className={`flex justify-between px-5 sm:px-10 lg:px-20 items-center relative rounded-2xl border-2 p-10 md:p-14 h-auto md:h-96 fade-in transition-all duration-200 ${isDarkMode ? 'border-[#212121] bg-[#212121]  shadow-[0px_4px_25px_rgba(0,0,0,1)] ' : 'shadow-2xl bg-white' } `}>
+            <div
+               className={`flex justify-between px-5 sm:px-10 lg:px-20 items-center relative rounded-2xl border-2 p-10 md:p-14 h-auto md:h-96 fade-in transition-all duration-200 ${
+                  isDarkMode
+                     ? 'border-[#212121] bg-[#212121]  shadow-[0px_4px_25px_rgba(0,0,0,1)] '
+                     : 'shadow-2xl bg-white'
+               } `}>
                <div>
                   <p className="font-medium text-lg">Hello,</p>
                   <p className="font-bold text-4xl sm:text-5xl mt-2">
@@ -70,10 +85,16 @@ const Profile = () => {
                {[cv, aboutMe, skills, projects, contact].map((image, index) => (
                   <div
                      key={index}
-                     className="relative w-28 h-28 sm:w-36 sm:h-36 group perspective cursor-pointer">
+                     className="relative w-28 h-28 sm:w-36 sm:h-36 group perspective cursor-pointer"
+                     onClick={() => webLinks(buttonLinks[index])}>
                      <div className="relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:rotate-y-180 ">
-                        <div className={`absolute inset-0 flex flex-col justify-center items-center border-2 p-3 rounded-3xl border-b-[#a294f9] backface-hidden 
-                           ${isDarkMode ? 'shadow-[0px_4px_25px_rgba(0,0,0,1)] border-[#212121] bg-[#212121]': 'border-[#eeeff2] shadow-2xl'}`}>
+                        <div
+                           className={`absolute inset-0 flex flex-col justify-center items-center border-2 p-3 rounded-3xl border-b-[#a294f9] backface-hidden 
+                           ${
+                              isDarkMode
+                                 ? 'shadow-[0px_4px_25px_rgba(0,0,0,1)] border-[#212121] bg-[#212121]'
+                                 : 'border-[#eeeff2] shadow-2xl'
+                           }`}>
                            <img
                               src={image}
                               alt={`icon-${index}`}

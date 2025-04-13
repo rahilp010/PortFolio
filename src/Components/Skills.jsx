@@ -14,10 +14,16 @@ const Skills = () => {
       { name: 'git-alt', progress: 75 },
       { name: 'github', progress: 75 },
       { name: 'jenkins', progress: 60 },
+      // { name: 'c++', progress: 50, image: cpp },
    ];
 
    const data = [
-      { name: 'Responsive Web Design', skills: skills.slice(0, 4) },
+      {
+         name: 'Responsive Web Design',
+         skills: skills.filter((skill) =>
+            ['html5', 'css3-alt', 'js', 'react'].includes(skill.name)
+         ),
+      },
       {
          name: 'UI/UX Design',
          skills: skills.filter((skill) =>
@@ -54,7 +60,10 @@ const Skills = () => {
                         ? 'shadow-[0px_4px_25px_rgba(0,0,0,1)] border-[#212121] bg-[#212121] '
                         : 'shadow-xl border-[#eeeff2]'
                   }`}>
-                     <p className={`font-bold text-xl mb-7 ${isDarkMode ? 'text-[#ffff]' : 'text-[#A294F9]'}`}>
+                     <p
+                        className={`font-bold text-xl mb-7 ${
+                           isDarkMode ? 'text-[#ffff]' : 'text-[#A294F9]'
+                        }`}>
                         {data.name}
                      </p>
                      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-10 items-center">
@@ -62,9 +71,17 @@ const Skills = () => {
                            <div
                               key={index}
                               className="flex flex-col items-center">
-                              <i
-                                 className={`fa-brands fa-${skill.name} text-4xl`}
-                                 style={{ color: getColor(skill.name) }}></i>
+                              {skill.image ? (
+                                 <img
+                                    src={skill.image}
+                                    alt={skill.name}
+                                    className="w-10 h-10"
+                                 />
+                              ) : (
+                                 <i
+                                    className={`fa-brands fa-${skill.name} text-4xl`}
+                                    style={{ color: getColor(skill.name) }}></i>
+                              )}
                               <progress
                                  value={skill.progress}
                                  max={100}
