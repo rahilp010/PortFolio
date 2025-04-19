@@ -7,7 +7,6 @@ import Skills from './Components/Skills';
 import Contact from './Components/Contact';
 
 const App = () => {
-  
    return (
       <>
          <Header />

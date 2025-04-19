@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDarkMode } from './DarkModeContext';
-
+import { motion } from 'motion/react';
 const getColor = (brand) => {
    const colors = {
       html5: '#ff5225',
@@ -24,13 +24,21 @@ const Projects = () => {
    };
 
    return (
-      <>
+      <motion.div
+         initial={{ opacity: 0, translateX: '-100%' }}
+         whileInView={{ opacity: 1, translateX: 0 }}
+         transition={{
+            duration: 1,
+            type: 'spring',
+            stiffness: 100,
+            damping: 10,
+         }}>
          <div
             className="font-bold text-3xl text-[#A294F9] text-center underline mt-24"
             id="projects">
             Projects
          </div>
-         <div className="blocks">
+         <div className="">
             <div
                className={`grid grid-cols-1 sm:grid-cols-2 items-center text-center mx-4 sm:mx-20 border-2 my-8 sm:my-16 
                   ${
@@ -65,7 +73,7 @@ const Projects = () => {
                </div>
             </div>
          </div>
-      </>
+      </motion.div>
    );
 };
 

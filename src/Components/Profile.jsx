@@ -6,6 +6,7 @@ import contact from '../assets/contact.png';
 import aboutMe from '../assets/aboutMe.png';
 import skills from '../assets/skills.png';
 import { useDarkMode } from './DarkModeContext';
+import { motion } from 'motion/react';
 
 const Profile = () => {
    const { isDarkMode } = useDarkMode();
@@ -42,7 +43,12 @@ const Profile = () => {
    const buttonLinks = ['cv', 'about', 'skills', 'projects', 'contact'];
 
    return (
-      <div className="w-full px-5 sm:px-10 lg:px-20 sm:mt-10 transition-all duration-500">
+      <motion.div
+         className="w-full px-5 sm:px-10 lg:px-20 sm:mt-10 transition-all duration-500"
+         initial={{ opacity: 1, scale: 1 }}
+         whileInView={{ opacity: 1, scale: 1 }}
+         transition={{ duration: 1 , delay: 0.5 }}
+         >
          <div className="w-full py-5">
             <div
                className={`flex justify-between px-5 sm:px-10 lg:px-20 items-center relative rounded-2xl border-2 p-10 md:p-14 h-auto md:h-96 fade-in transition-all duration-200 ${
@@ -79,8 +85,11 @@ const Profile = () => {
                />
             </div>
          </div>
-
-         <div className="flex justify-center blocks">
+         <motion.div className="flex justify-center"
+          initial={{ opacity: 0, scale: 0 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 , type: 'spring', stiffness: 100, damping: 10 }}
+         >
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-10 my-7 sm:my-16">
                {[cv, aboutMe, skills, projects, contact].map((image, index) => (
                   <div
@@ -111,8 +120,8 @@ const Profile = () => {
                   </div>
                ))}
             </div>
-         </div>
-      </div>
+         </motion.div>
+      </motion.div>
    );
 };
 

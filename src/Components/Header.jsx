@@ -3,11 +3,14 @@ import Logo from '../assets/Logo.png';
 import Logo2 from '../assets/Logo2.png';
 import { IoMenu, IoClose } from 'react-icons/io5';
 import { useDarkMode } from './DarkModeContext';
+import { motion, useScroll } from 'motion/react';
 
 const Header = () => {
    const [isSticky, setIsSticky] = useState(false);
    const [menuOpen, setMenuOpen] = useState(false);
-   const { isDarkMode, toggleDarkMode } = useDarkMode(); // ✅ Fix: Added toggleDarkMode
+   const { isDarkMode, toggleDarkMode } = useDarkMode(); 
+
+   const { scrollYProgress } = useScroll({});
 
    useEffect(() => {
       const handleScroll = () => {
@@ -23,7 +26,7 @@ const Header = () => {
    };
 
    return (
-      <div
+      <motion.div
          className={`w-full top-0 left-0 transition-all duration-300 p-2 z-50 ${
             isSticky
                ? `fixed transform translate-y-0 ${
@@ -33,6 +36,9 @@ const Header = () => {
                  }`
                : 'relative opacity-90 scale-95'
          }`}>
+         <motion.div
+            className="fixed top-0 left-0 right-0 h-1 bg-violet-500 origin-left"
+            style={{ scaleX: scrollYProgress }}></motion.div>
          <div className="flex justify-between items-center mx-0 sm:mx-10 rounded-full font-bold transition-all duration-300">
             {/* Logo with Dark Mode Toggle */}
             <button
@@ -102,7 +108,7 @@ const Header = () => {
                </ul>
             </div>
          )}
-      </div>
+      </motion.div>
    );
 };
 

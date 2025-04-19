@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDarkMode } from './DarkModeContext';
-
+import tailwind from '../assets/tailwind.png';
+import { motion } from 'motion/react';
 const Skills = () => {
    const { isDarkMode } = useDarkMode();
 
@@ -14,6 +15,7 @@ const Skills = () => {
       { name: 'git-alt', progress: 75 },
       { name: 'github', progress: 75 },
       { name: 'jenkins', progress: 60 },
+      { name: 'tailwind', progress: 80, image: tailwind },
       // { name: 'c++', progress: 50, image: cpp },
    ];
 
@@ -21,13 +23,15 @@ const Skills = () => {
       {
          name: 'Responsive Web Design',
          skills: skills.filter((skill) =>
-            ['html5', 'css3-alt', 'js', 'react'].includes(skill.name)
+            ['html5', 'css3-alt', 'js', 'react', 'tailwind'].includes(
+               skill.name
+            )
          ),
       },
       {
          name: 'UI/UX Design',
          skills: skills.filter((skill) =>
-            ['css3-alt', 'figma', 'dribbble'].includes(skill.name)
+            ['css3-alt', 'figma', 'dribbble', 'tailwind'].includes(skill.name)
          ),
       },
       {
@@ -43,13 +47,21 @@ const Skills = () => {
    ];
 
    return (
-      <>
+      <motion.div
+         initial={{ opacity: 0, rotateX: '70deg' }}
+         whileInView={{ opacity: 1, rotateX: 0 }}
+         transition={{
+            duration: 1,
+            type: 'spring',
+            stiffness: 100,
+            damping: 10,
+         }}>
          <p
             className="font-bold text-3xl text-[#A294F9] text-center underline mt-10"
             id="skills">
             Skills
          </p>
-         <div className="mx-4 sm:mx-22 my-5 sm:my-16 blocks">
+         <div className="mx-4 sm:mx-22 my-5 sm:my-16">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
                {data.map((data, index) => (
                   <div
@@ -93,7 +105,7 @@ const Skills = () => {
                ))}
             </div>
          </div>
-      </>
+      </motion.div>
    );
 };
 

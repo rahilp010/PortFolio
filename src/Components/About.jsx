@@ -1,26 +1,40 @@
 import mine from '../assets/mine1.jpg';
 import { useDarkMode } from './DarkModeContext';
+import { motion } from 'motion/react';
 
 const About = () => {
-
    const { isDarkMode } = useDarkMode();
-   
+
    return (
-      <div className="max-w-5xl mx-auto px-6 py-14 md:px-30 lg:px-10">
+      <motion.div
+         className="mx-auto py-14 md:px-30 lg:px-10 bg-[#101010]"
+         initial={{ opacity: 0, translateX: '100%' }}
+         whileInView={{ opacity: 1, translateX: 0 }}
+         transition={{
+            duration: 2,
+            type: 'spring',
+            stiffness: 100,
+            damping: 10,
+         }}>
          <p
             className="font-bold text-3xl text-[#A294F9] text-center underline mb-10"
             id="about">
             About Me
          </p>
 
-         <div className={`px-0 py-0 sm:py-5 sm:px-5 rounded-xl mt-18 blocks
-            ${isDarkMode ? 'shadow-[0px_4px_25px_rgba(0,0,0,1)] ' : 'shadow-2xl bg-white'}`}>
+         <div
+            className={`mx-20 py-0 sm:py-5 sm:px-5 md:p-7 my-18 bg-black/40 backdrop-blur-2xl rounded-4xl shadow-xl overflow-hidden hover:shadow-xl hover:scale-[1.02] transition-transform duration-300 
+            ${
+               isDarkMode
+                  ? 'shadow-[0px_4px_25px_rgba(0,0,0,1)] '
+                  : 'shadow-2xl bg-white'
+            }`}>
             <div className="flex flex-col md:flex-row items-center gap-10 ">
                <div className="w-60 h-60 md:w-80 md:h-80 min-w-60 min-h-60 md:min-w-80 md:min-h-80 rounded-xl overflow-hidden flex-shrink-0">
                   <img
                      src={mine}
                      alt="Mine"
-                     className="w-full h-full object-cover shadow-lg"
+                     className="h-full w-full rounded-4xl object-cover shadow-lg"
                   />
                </div>
                <div className="flex-1 text-center md:text-left">
@@ -34,7 +48,7 @@ const About = () => {
                </div>
             </div>
          </div>
-      </div>
+      </motion.div>
    );
 };
 

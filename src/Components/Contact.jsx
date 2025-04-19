@@ -4,6 +4,7 @@ import contactMe from '../assets/contact-me.png';
 import { useDarkMode } from './DarkModeContext';
 import emailjs from '@emailjs/browser';
 import { useRef } from 'react';
+import { motion } from 'motion/react';
 const Contact = () => {
    const { isDarkMode } = useDarkMode();
 
@@ -68,7 +69,15 @@ const Contact = () => {
    });
 
    return (
-      <>
+      <motion.div
+         initial={{ opacity: 0, scale: 0 }}
+         whileInView={{ opacity: 1, scale: 1 }}
+         transition={{
+            duration: 1,
+            type: 'spring',
+            stiffness: 100,
+            damping: 10,
+         }}>
          <div>
             <div
                className="font-bold text-3xl text-[#A294F9] text-center underline mt-24"
@@ -77,7 +86,7 @@ const Contact = () => {
             </div>
 
             <div
-               className={`blocks grid grid-cols-1 sm:grid-cols-2 items-center mx-5 sm:mx-20 border-2 rounded-2xl shadow-xl my-8 sm:my-10
+               className={`grid grid-cols-1 sm:grid-cols-2 items-center mx-5 sm:mx-20 border-2 rounded-2xl shadow-xl my-8 sm:my-10
             ${
                isDarkMode
                   ? 'shadow-[0px_4px_25px_rgba(0,0,0,1)] border-[#212121] bg-[#212121]'
@@ -240,7 +249,7 @@ const Contact = () => {
                </div>
             </div>
          </div>
-      </>
+      </motion.div>
    );
 };
 
