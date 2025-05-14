@@ -1,23 +1,10 @@
 import React from 'react';
 import { useDarkMode } from './DarkModeContext';
-import tailwind from '../assets/tailwind.png';
 import { motion } from 'motion/react';
+import {skills} from '../data';
+
 const Skills = () => {
    const { isDarkMode } = useDarkMode();
-
-   const skills = [
-      { name: 'html5', progress: 90 },
-      { name: 'css3-alt', progress: 85 },
-      { name: 'js', progress: 80 },
-      { name: 'react', progress: 70 },
-      { name: 'figma', progress: 65 },
-      { name: 'dribbble', progress: 55 },
-      { name: 'git-alt', progress: 75 },
-      { name: 'github', progress: 75 },
-      { name: 'jenkins', progress: 60 },
-      { name: 'tailwind', progress: 80, image: tailwind },
-      // { name: 'c++', progress: 50, image: cpp },
-   ];
 
    const data = [
       {

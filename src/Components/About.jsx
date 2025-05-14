@@ -1,3 +1,4 @@
+import Variants from '../Animations/Variants';
 import mine from '../assets/mine1.jpg';
 import { useDarkMode } from './DarkModeContext';
 import { motion } from 'motion/react';
@@ -8,14 +9,9 @@ const About = () => {
    return (
       <motion.div
          className="mx-auto py-14 md:px-30 lg:px-10 bg-[#101010]"
-         initial={{ opacity: 0, translateX: '100%' }}
-         whileInView={{ opacity: 1, translateX: 0 }}
-         transition={{
-            duration: 2,
-            type: 'spring',
-            stiffness: 100,
-            damping: 10,
-         }}>
+         variants={Variants('right', 0.2)}
+         initial="hidden"
+         whileInView={'show'}>
          <p
             className="font-bold text-3xl text-[#A294F9] text-center underline mb-10"
             id="about">
@@ -23,7 +19,7 @@ const About = () => {
          </p>
 
          <div
-            className={`mx-20 py-0 sm:py-5 sm:px-5 md:p-7 my-18 bg-black/40 backdrop-blur-2xl rounded-4xl shadow-xl overflow-hidden hover:shadow-xl hover:scale-[1.02] transition-transform duration-300 
+            className={`mx-20 py-0 sm:py-5 sm:px-5 md:p-7 my-18glass-card relative group p-8 rounded-2xl backdrop-blur-lg bg-white/5 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-white/20 shadow-2xl
             ${
                isDarkMode
                   ? 'shadow-[0px_4px_25px_rgba(0,0,0,1)] '

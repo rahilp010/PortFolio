@@ -5,6 +5,7 @@ import { useDarkMode } from './DarkModeContext';
 import emailjs from '@emailjs/browser';
 import { useRef } from 'react';
 import { motion } from 'motion/react';
+import Variants from '../Animations/Variants';
 const Contact = () => {
    const { isDarkMode } = useDarkMode();
 
@@ -70,14 +71,15 @@ const Contact = () => {
 
    return (
       <motion.div
-         initial={{ opacity: 0, scale: 0 }}
-         whileInView={{ opacity: 1, scale: 1 }}
+         initial={{ opacity: 0, rotateX: '70deg' }}
+         whileInView={{ opacity: 1, rotateX: 0 }}
          transition={{
-            duration: 1,
+            duration: 2,
             type: 'spring',
             stiffness: 100,
             damping: 10,
-         }}>
+         }}
+         className="px-5">
          <div>
             <div
                className="font-bold text-3xl text-[#A294F9] text-center underline mt-24"
@@ -86,7 +88,7 @@ const Contact = () => {
             </div>
 
             <div
-               className={`grid grid-cols-1 sm:grid-cols-2 items-center mx-5 sm:mx-20 border-2 rounded-2xl shadow-xl my-8 sm:my-10
+               className={`grid grid-cols-1 sm:grid-cols-2 items-center mx-5 sm:mx-20 my-8 sm:my-10 glass-card relative group p-8 rounded-2xl backdrop-blur-lg bg-white/5 transition-all duration-300 border border-white/10 hover:border-white/30 shadow-2xl shadow-black/50
             ${
                isDarkMode
                   ? 'shadow-[0px_4px_25px_rgba(0,0,0,1)] border-[#212121] bg-[#212121]'
@@ -108,7 +110,7 @@ const Contact = () => {
                   <form ref={form} onSubmit={handleSubmit}>
                      <div>
                         <div
-                           className=" mx-auto p-6 h-full w-full rounded-md bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-50"
+                           className=" mx-auto p-6 h-full w-full rounded-md "
                            style={{
                               backgroundImage: `url(${isDarkMode ? '' : ''})`,
                            }}>

@@ -51,7 +51,7 @@ const Profile = () => {
          >
          <div className="w-full py-5">
             <div
-               className={`flex justify-between px-5 sm:px-10 lg:px-20 items-center relative rounded-2xl border-2 p-10 md:p-14 h-auto md:h-96 fade-in transition-all duration-200 ${
+               className={`flex justify-between px-5 sm:px-10 lg:px-20 items-center md:p-14 h-auto md:h-96 fade-in glass-card relative group p-8 rounded-2xl backdrop-blur-lg bg-white/5 transition-all duration-300 border border-white/10 hover:border-white/20 shadow-2xl shadow-black/50 ${
                   isDarkMode
                      ? 'border-[#212121] bg-[#212121]  shadow-[0px_4px_25px_rgba(0,0,0,1)] '
                      : 'shadow-2xl bg-white'
