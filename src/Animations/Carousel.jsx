@@ -6,13 +6,12 @@ import { useDarkMode } from '../Components/DarkModeContext';
 import { motion } from 'framer-motion';
 import { IoDocumentText } from 'react-icons/io5';
 
-const itemsPerPage = 4;
-
 const Carousel = () => {
    const [page, setPage] = useState(0);
    // const [repos, setRepos] = useState([]);
    // const [languages, setLanguages] = useState([]);
    const [isFlipped, setIsFlipped] = useState(false);
+   const [isSmallScreen, setIsSmallScreen] = useState(false);
    const { isDarkMode } = useDarkMode();
 
    // useEffect(() => {
@@ -38,6 +37,19 @@ const Carousel = () => {
    //    };
    //    fetchData();
    // }, []);
+
+   useEffect(() => {
+      const checkScreenSize = () => {
+         setIsSmallScreen(window.innerWidth < 640); // Tailwind "sm" is 640px
+      };
+
+      checkScreenSize(); // Run on mount
+
+      window.addEventListener('resize', checkScreenSize);
+      return () => window.removeEventListener('resize', checkScreenSize);
+   }, []);
+
+   const itemsPerPage = isSmallScreen ? 10 : 4;
 
    const totalPages = Math.ceil(data.length / itemsPerPage);
 
@@ -226,7 +238,7 @@ const Carousel = () => {
             ))}
          </div>
 
-         {itemsPerPage >= 4 && (
+         {isSmallScreen || itemsPerPage >= 4 && ( 
             <div>
                <button
                   onClick={handlePrev}

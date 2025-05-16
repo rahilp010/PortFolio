@@ -101,7 +101,7 @@ const Projects = () => {
             stiffness: 100,
             damping: 10,
          }}
-         className="px-20">
+         className="px-0 sm:px-20">
          <div
             className="font-bold text-3xl text-[#A294F9] text-center underline mt-24"
             id="projects">
