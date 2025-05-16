@@ -103,7 +103,7 @@ const getColor = (brand) => {
       js: '#f7e025',
       react: '#81e0ff',
       'git-alt': '#e84d31',
-      github: '#111',
+      github: 'white',
       figma: '#9abf80',
       dribbble: '#f6a1df',
       jenkins: '#ee0536',
