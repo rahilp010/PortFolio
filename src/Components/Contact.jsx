@@ -88,7 +88,7 @@ const Contact = () => {
             </div>
 
             <div
-               className={`grid grid-cols-1 sm:grid-cols-2 items-center mx-5 sm:mx-20 my-8 sm:my-10 glass-card relative group p-8 rounded-2xl backdrop-blur-lg bg-white/5 transition-all duration-300 border border-white/10 hover:border-white/30 shadow-2xl shadow-black/50
+               className={`grid grid-cols-1 sm:grid-cols-2 items-center mx-1 sm:mx-20 my-8 sm:my-10 glass-card relative group p-8 rounded-2xl backdrop-blur-lg bg-white/5 transition-all duration-300 border border-white/10 hover:border-white/30 shadow-2xl shadow-black/50
             ${
                isDarkMode
                   ? 'shadow-[0px_4px_25px_rgba(0,0,0,1)] border-[#212121] bg-[#212121]'
@@ -110,7 +110,7 @@ const Contact = () => {
                   <form ref={form} onSubmit={handleSubmit}>
                      <div>
                         <div
-                           className=" mx-auto p-6 h-full w-full rounded-md "
+                           className="p-0 sm:p-6 h-full w-full rounded-md "
                            style={{
                               backgroundImage: `url(${isDarkMode ? '' : ''})`,
                            }}>

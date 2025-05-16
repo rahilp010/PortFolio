@@ -19,7 +19,7 @@ const About = () => {
          </p>
 
          <div
-            className={`mx-20 py-0 sm:py-5 sm:px-5 md:p-7 my-18glass-card relative group p-8 rounded-2xl backdrop-blur-lg bg-white/5 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-white/20 shadow-2xl
+            className={`mx-5 sm:mx-20 py-5 sm:py-5 sm:px-5 md:p-7 my-18glass-card relative group p-8 rounded-2xl backdrop-blur-lg bg-white/5 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-white/20 shadow-2xl
             ${
                isDarkMode
                   ? 'shadow-[0px_4px_25px_rgba(0,0,0,1)] '
