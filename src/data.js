@@ -3,9 +3,9 @@ import tailwind from '../src/assets/tailwind.png';
 const data = [
     {
         id: 1,
-        name: "Banky-ExpensesTracker",
-        descriptionOneLiner: "A simple expenses tracker built with React and Tailwind CSS.",
-        description: "A simple expenses tracker built with React and Tailwind CSS. A simple expenses tracker built with React and Tailwind CSS. A simple expenses tracker built with React and Tailwind CSS.A simple expenses tracker built with React and Tailwind CSS.A simple expenses tracker built with React and Tailwind CSS.",
+        name: "Electron",
+        descriptionOneLiner: "Desktop Application",
+        description: "Electron offers a comprehensive, all-in-one solution for inventory management, stock reporting, and banking alerts. It provides full functionality without compromising privacy, as no data is stored on the cloud.",
         languages: [{ 'language': 'react', 'progress': 70 }, { 'language': 'dribbble', 'progress': 60 }],
         link: "https://github.com/rahilp010/Banky-ExpensesTracker"
     },
@@ -46,7 +46,7 @@ const data = [
         name: 'Carbazaar',
         descriptionOneLiner: 'A car dealership website built with React and Tailwind CSS.',
         description: 'A car dealership website built with React and Tailwind CSS.',
-        languages: [{ 'language': 'js', 'progress': 50 }, { 'language': 'html5', 'progress': 80 }, { 'language': 'css3-alt', 'progress': 70 },{language:'php','process':30}],
+        languages: [{ 'language': 'js', 'progress': 50 }, { 'language': 'html5', 'progress': 80 }, { 'language': 'css3-alt', 'progress': 70 }, { language: 'php', 'process': 30 }],
         link: 'https://github.com/rahilp010/Carbazaar',
     },
 
@@ -61,7 +61,7 @@ const skills = [
     { name: 'dribbble', progress: 55 },
     { name: 'git-alt', progress: 75 },
     { name: 'github', progress: 75 },
-    { name: 'jenkins', progress: 60 },
+    // { name: 'jenkins', progress: 60 },
     { name: 'tailwind', progress: 80, image: tailwind },
     { name: 'php', progress: 70, },
     // { name: 'c++', progress: 50, image: cpp },

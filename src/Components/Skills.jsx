@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDarkMode } from './DarkModeContext';
-import { motion } from 'motion/react';
-import {skills} from '../data';
+import { motion } from 'framer-motion'; // Corrected to framer-motion for better compatibility
+import { skills } from '../data';
 
 const Skills = () => {
    const { isDarkMode } = useDarkMode();
@@ -11,14 +11,14 @@ const Skills = () => {
          name: 'Responsive Web Design',
          skills: skills.filter((skill) =>
             ['html5', 'css3-alt', 'js', 'react', 'tailwind'].includes(
-               skill.name
-            )
+               skill.name,
+            ),
          ),
       },
       {
          name: 'UI/UX Design',
          skills: skills.filter((skill) =>
-            ['css3-alt', 'figma', 'dribbble', 'tailwind'].includes(skill.name)
+            ['css3-alt', 'figma', 'dribbble', 'tailwind'].includes(skill.name),
          ),
       },
       {
@@ -28,71 +28,100 @@ const Skills = () => {
       {
          name: 'CI/CD',
          skills: skills.filter((skill) =>
-            ['git-alt', 'github', 'jenkins'].includes(skill.name)
+            ['git-alt', 'github', 'jenkins'].includes(skill.name),
          ),
       },
    ];
 
    return (
-      <motion.div
-         initial={{ opacity: 0, rotateX: '70deg' }}
-         whileInView={{ opacity: 1, rotateX: 0 }}
+      <motion.section
+         initial={{ opacity: 0, y: 50 }}
+         whileInView={{ opacity: 1, y: 0 }}
          transition={{
-            duration: 1,
-            type: 'spring',
-            stiffness: 100,
-            damping: 10,
-         }}>
-         <p
-            className="font-bold text-3xl text-[#A294F9] text-center underline mt-10"
-            id="skills">
+            duration: 1.2,
+            ease: 'easeOut',
+         }}
+         viewport={{ once: true }}
+         className="relative px-4 sm:px-8 lg:px-20 py-16 overflow-hidden"
+         id="skills">
+         {/* Premium background gradient for depth */}
+         <div className="absolute inset-0 bg-gradient-to-br from-transparent via-[rgba(162,148,249,0.05)] to-transparent pointer-events-none" />
+
+         {/* Enhanced title with subtle glow and better typography */}
+         <motion.h2
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+            className={`font-extrabold text-4xl md:text-5xl ${
+               isDarkMode ? 'text-[#D4C6FF]' : 'text-[#A294F9]'
+            } text-center underline decoration-wavy underline-offset-8 mb-12 tracking-wide drop-shadow-md`}>
             Skills
-         </p>
-         <div className="mx-4 sm:mx-22 my-5 sm:my-16">
+         </motion.h2>
+
+         {/* Grid container with premium card-like styling */}
+         <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.4, ease: 'easeOut' }}
+            className={`bg-${
+               isDarkMode ? 'gray-900/50' : 'white/50'
+            } backdrop-blur-md rounded-2xl shadow-2xl p-6 md:p-8 border border-${
+               isDarkMode ? 'gray-700' : '[#A294F9]/20'
+            }`}>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-               {data.map((data, index) => (
-                  <div
+               {data.map((item, index) => (
+                  <motion.div
                      key={index}
-                     className={`p-5 border-2 rounded-lg
-                  ${
-                     isDarkMode
-                        ? 'shadow-[0px_4px_25px_rgba(0,0,0,1)] border-[#212121] bg-[#212121] '
-                        : 'shadow-xl border-[#eeeff2]'
-                  }`}>
+                     initial={{ opacity: 0, scale: 0.95 }}
+                     whileInView={{ opacity: 1, scale: 1 }}
+                     transition={{
+                        duration: 0.5,
+                        delay: 0.1 * index,
+                        ease: 'easeOut',
+                     }}
+                     className={`p-6 border rounded-xl transition-all duration-300 hover:shadow-xl ${
+                        isDarkMode
+                           ? 'border-gray-700 bg-gray-800/70 backdrop-blur-sm'
+                           : 'border-[#A294F9]/30 bg-white/70 backdrop-blur-sm'
+                     }`}>
                      <p
                         className={`font-bold text-xl mb-7 ${
-                           isDarkMode ? 'text-[#ffff]' : 'text-[#A294F9]'
+                           isDarkMode ? 'text-white' : 'text-[#A294F9]'
                         }`}>
-                        {data.name}
+                        {item.name}
                      </p>
-                     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-10 items-center">
-                        {data.skills.map((skill, index) => (
+                     <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 items-center">
+                        {item.skills.map((skill, skillIndex) => (
                            <div
-                              key={index}
+                              key={skillIndex}
                               className="flex flex-col items-center">
                               {skill.image ? (
                                  <img
                                     src={skill.image}
                                     alt={skill.name}
-                                    className="w-10 h-10"
+                                    className="w-12 h-12 mb-2"
                                  />
                               ) : (
                                  <i
-                                    className={`fa-brands fa-${skill.name} text-4xl`}
+                                    className={`fa-brands fa-${skill.name} text-5xl mb-2`}
                                     style={{ color: getColor(skill.name) }}></i>
                               )}
                               <progress
                                  value={skill.progress}
                                  max={100}
-                                 className="w-20 h-2 mt-2 rounded-lg bg-gray-300 [&::-webkit-progress-bar]:bg-gray-300 [&::-webkit-progress-value]:bg-[#A294F9]"></progress>
+                                 className={`w-24 h-2 rounded-full ${
+                                    isDarkMode
+                                       ? 'bg-gray-700 [&::-webkit-progress-bar]:bg-gray-700 [&::-webkit-progress-value]:bg-[#D4C6FF]'
+                                       : 'bg-gray-300 [&::-webkit-progress-bar]:bg-gray-300 [&::-webkit-progress-value]:bg-[#A294F9]'
+                                 }`}></progress>
                            </div>
                         ))}
                      </div>
-                  </div>
+                  </motion.div>
                ))}
             </div>
-         </div>
-      </motion.div>
+         </motion.div>
+      </motion.section>
    );
 };
 

@@ -1,50 +1,85 @@
 import Variants from '../Animations/Variants';
 import mine from '../assets/mine1.jpg';
 import { useDarkMode } from './DarkModeContext';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion'; // Corrected to framer-motion for better compatibility
 
 const About = () => {
    const { isDarkMode } = useDarkMode();
 
    return (
-      <motion.div
-         className="mx-auto py-14 md:px-30 lg:px-10 bg-[#101010]"
-         variants={Variants('right', 0.2)}
-         initial="hidden"
-         whileInView={'show'}>
-         <p
-            className="font-bold text-3xl text-[#A294F9] text-center underline mb-10"
-            id="about">
-            About Me
-         </p>
+      <motion.section
+         initial={{ opacity: 0, y: 50 }}
+         whileInView={{ opacity: 1, y: 0 }}
+         transition={{
+            duration: 1.2,
+            ease: 'easeOut',
+         }}
+         viewport={{ once: true }}
+         className="relative px-4 sm:px-8 lg:px-20 py-16 overflow-hidden"
+         id="about">
+         {/* Premium background gradient for depth */}
+         <div className="absolute inset-0 bg-gradient-to-br from-transparent via-[rgba(162,148,249,0.05)] to-transparent pointer-events-none" />
 
-         <div
-            className={`mx-5 sm:mx-20 py-5 sm:py-5 sm:px-5 md:p-7 my-18glass-card relative group p-8 rounded-2xl backdrop-blur-lg bg-white/5 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-white/20 shadow-2xl
-            ${
-               isDarkMode
-                  ? 'shadow-[0px_4px_25px_rgba(0,0,0,1)] '
-                  : 'shadow-2xl bg-white'
-            }`}>
-            <div className="flex flex-col md:flex-row items-center gap-10 ">
-               <div className="w-60 h-60 md:w-80 md:h-80 min-w-60 min-h-60 md:min-w-80 md:min-h-80 rounded-xl overflow-hidden flex-shrink-0">
+         {/* Enhanced title with subtle glow and better typography */}
+         <motion.h2
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+            className={`font-extrabold text-4xl md:text-5xl ${
+               isDarkMode ? 'text-[#D4C6FF]' : 'text-[#A294F9]'
+            } text-center underline decoration-wavy underline-offset-8 mb-12 tracking-wide drop-shadow-md`}>
+            About Me
+         </motion.h2>
+
+         {/* Content container with premium card-like styling */}
+         <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.4, ease: 'easeOut' }}
+            className={`bg-${
+               isDarkMode ? 'gray-900/50' : 'white/50'
+            } backdrop-blur-md rounded-2xl shadow-2xl p-6 md:p-8 border border-${
+               isDarkMode ? 'gray-700' : '[#A294F9]/20'
+            } transition-all duration-300 hover:shadow-xl`}>
+            <div className="flex flex-col md:flex-row items-center gap-10">
+               {/* Image with animation */}
+               <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
+                  className="w-60 h-60 md:w-80 md:h-80 rounded-full overflow-hidden flex-shrink-0 shadow-lg">
                   <img
                      src={mine}
-                     alt="Mine"
-                     className="h-full w-full rounded-4xl object-cover shadow-lg"
+                     alt="Rahil"
+                     className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
                   />
-               </div>
-               <div className="flex-1 text-center md:text-left">
-                  <p className="font-bold text-2xl mb-4">I'm Rahil</p>
-                  <p className="text-gray-400 leading-relaxed">
+               </motion.div>
+
+               {/* Text content with animation */}
+               <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: 0.8, ease: 'easeOut' }}
+                  className="flex-1 text-center md:text-left">
+                  <h3
+                     className={`font-bold text-3xl mb-4 ${
+                        isDarkMode ? 'text-[#D4C6FF]' : 'text-[#A294F9]'
+                     }`}>
+                     I'm Rahil
+                  </h3>
+                  <p
+                     className={`leading-relaxed ${
+                        isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                     }`}>
                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                      Impedit, earum blanditiis tempora quaerat ex at nobis
                      pariatur voluptatibus doloremque expedita amet ipsa maiores
                      architecto odio quo nisi enim reiciendis magni.
                   </p>
-               </div>
+               </motion.div>
             </div>
-         </div>
-      </motion.div>
+         </motion.div>
+      </motion.section>
    );
 };
 

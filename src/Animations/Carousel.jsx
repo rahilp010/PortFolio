@@ -1,269 +1,134 @@
 import { useEffect, useState } from 'react';
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
-import axios from 'axios';
-import { data, skills } from '../data';
-import { useDarkMode } from '../Components/DarkModeContext';
 import { motion } from 'framer-motion';
-import { IoDocumentText } from 'react-icons/io5';
+import { data, skills } from '../data';
 
 const Carousel = () => {
    const [page, setPage] = useState(0);
-   // const [repos, setRepos] = useState([]);
-   // const [languages, setLanguages] = useState([]);
-   const [isFlipped, setIsFlipped] = useState(false);
-   const [isSmallScreen, setIsSmallScreen] = useState(false);
-   const { isDarkMode } = useDarkMode();
-
-   // useEffect(() => {
-   //    const fetchData = async () => {
-   //       try {
-   //          const responseRepos = await axios.get(
-   //             'https://api.github.com/users/rahilp010/repos'
-   //          );
-   //          setRepos(responseRepos.data);
-
-   //          const languageResponse = responseRepos.data.map((repo) =>
-   //             axios.get(
-   //                `https://api.github.com/repos/rahilp010/${repo.name}/languages`
-   //             )
-   //          );
-   //          const languages = [await Promise.all(languageResponse)]
-
-   //          const languagesData = languages.map((language) => language.data);
-   //          setLanguages(languagesData);
-   //       } catch (err) {
-   //          console.error('Error fetching repos:', err);
-   //       }
-   //    };
-   //    fetchData();
-   // }, []);
+   const [isSmall, setIsSmall] = useState(false);
 
    useEffect(() => {
-      const checkScreenSize = () => {
-         setIsSmallScreen(window.innerWidth < 640); // Tailwind "sm" is 640px
-      };
-
-      checkScreenSize(); // Run on mount
-
-      window.addEventListener('resize', checkScreenSize);
-      return () => window.removeEventListener('resize', checkScreenSize);
+      const resize = () => setIsSmall(window.innerWidth < 640);
+      resize();
+      window.addEventListener('resize', resize);
+      return () => window.removeEventListener('resize', resize);
    }, []);
 
-   const itemsPerPage = isSmallScreen ? 10 : 4;
-
+   const itemsPerPage = isSmall ? 1 : 3; // ✅ 3-column grid
    const totalPages = Math.ceil(data.length / itemsPerPage);
 
-   const handleNext = () => {
-      setPage((prev) => (prev + 1) % totalPages);
-   };
-
-   const handlePrev = () => {
-      setPage((prev) => (prev - 1 + totalPages) % totalPages);
-   };
-
-   // const currentRepos = repos.slice(
-   const currentRepos = data.slice(
+   const items = data.slice(
       page * itemsPerPage,
-      page * itemsPerPage + itemsPerPage
+      page * itemsPerPage + itemsPerPage,
    );
 
-   const getColor = (brand) => {
-      const colors = {
-         html5: '#ff5225',
-         'css3-alt': '#2d53e5',
-         js: '#f7e025',
-         react: '#81e0ff',
-         'git-alt': '#e84d31',
-         github: '#111',
-         figma: '#9abf80',
-         dribbble: '#f6a1df',
-         jenkins: '#ee0536',
-         php: '#4979fc',
-      };
-      return colors[brand] || '#000';
-   };
-
    return (
-      <div className="relative w-full mx-auto p-4">
-         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            {currentRepos.map((data, id) => (
-               <div
-                  key={id}
-                  className="relative overflow-hidden group h-72 glass-card group rounded-2xl backdrop-blur-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 shadow-2xl shadow-black/50 hover:scale-102 hover:cursor-pointer transition-transform duration-300"
-                  style={{ perspective: '500px' }}
-                  onClick={() =>
-                     setIsFlipped((prev) => ({
-                        ...prev,
-                        [data.id]: !prev[data.id],
-                     }))
-                  }>
-                  <motion.div
-                     className="relative w-full h-full duration-100"
-                     animate={{ rotateY: isFlipped[data.id] ? 180 : 0 }}
-                     style={{ transformStyle: 'preserve-3d' }}
-                     inherit={{ scale: 0, opacity: 0 }}
-                     whileInView={{
-                        scale: 1,
-                        opacity: 1,
-                        delay: 0.5,
-                     }}
-                     whileHover={{
-                        cursor: 'pointer',
-                     }}
-                     transition={{ type: 'spring', stiffness: 50 }}>
-                     {/* Front */}
-                     <div
-                        className="absolute w-full h-full p-5"
-                        style={{ backfaceVisibility: 'hidden' }}>
-                        <h2 className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text mb-2 text-center">
-                           {data.name}
-                        </h2>
-                        <p className="text-sm mb-2 text-center">
-                           {data.descriptionOneLiner}
-                        </p>
-                        <div className="flex justify-center mt-4">
-                           <div className="w-full h-1.5 absolute top-0 left-0 bg-gradient-to-r from-blue-500 to-purple-500"></div>
-                           <div className="w-full h-0.5 mx-20 bg-gray-50"></div>
-                           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-10 text-sm font-bold bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text">
-                              Tap to view
-                           </div>
-                           <div
-                              className="absolute top-1/2"
-                              onClick={(e) => e.stopPropagation()}>
-                              {
-                                 <i
-                                    className={`fa-brands fa-github text-5xl z-10`}
-                                    onClick={() =>
-                                       window.open(data.link, '_blank')
-                                    }></i>
-                              }
-                           </div>
-                           <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
-                              <div className="relative flex gap-4 items-center justify-center">
-                                 {skills.map((skill, index) => {
-                                    const matchedLang = data.languages.find(
-                                       (lang) =>
-                                          lang.language.toLowerCase() ===
-                                          skill.name.toLowerCase()
-                                    );
+      <div className="relative w-full p-6">
+         {/* GRID */}
+         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {items.map((item, i) => (
+               <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  className="relative h-80 rounded-2xl
+            bg-white/5 backdrop-blur-xl
+            border border-white/10
+            shadow-[0_20px_60px_rgba(0,0,0,0.5)]
+            hover:-translate-y-1 hover:shadow-[0_30px_80px_rgba(0,0,0,0.7)]
+            transition-all duration-300">
+                  {/* CARD CONTENT */}
+                  <div className="p-6 h-full flex flex-col">
+                     {/* TITLE */}
+                     <h2
+                        className="text-xl font-bold text-center
+              bg-gradient-to-r from-indigo-400 to-purple-500
+              text-transparent bg-clip-text">
+                        {item.name}
+                     </h2>
 
-                                    // If no match, skip rendering this skill
-                                    if (!matchedLang) return null;
+                     {/* SHORT DESCRIPTION */}
+                     <p className="text-sm text-gray-300 text-center mt-2 line-clamp-2">
+                        {item.descriptionOneLiner}
+                     </p>
 
-                                    return (
-                                       <div
-                                          key={index}
-                                          className="flex flex-col items-center group relative w-10 h-10">
-                                          <svg
-                                             width="80"
-                                             height="80"
-                                             className="absolute z-0 rotate-[-90deg]">
-                                             <circle
-                                                cx="40"
-                                                cy="40"
-                                                r="20"
-                                                stroke="#e5e7eb"
-                                                strokeWidth="4"
-                                                fill="none"
-                                             />
-                                             <circle
-                                                cx="40"
-                                                cy="40"
-                                                r="20"
-                                                stroke="#A294F9"
-                                                strokeWidth="4"
-                                                strokeLinecap="round"
-                                                fill="none"
-                                                strokeDasharray={
-                                                   2 * Math.PI * 20
-                                                }
-                                                strokeDashoffset={
-                                                   2 *
-                                                   Math.PI *
-                                                   20 *
-                                                   (1 -
-                                                      matchedLang.progress /
-                                                         100)
-                                                }
-                                                className="transition-all duration-500"
-                                             />
-                                          </svg>
+                     {/* TECH STACK */}
+                     <div className="flex flex-wrap justify-center gap-3 mt-6">
+                        {skills.map((skill, idx) => {
+                           const used = item.languages.find(
+                              (l) =>
+                                 l.language.toLowerCase() ===
+                                 skill.name.toLowerCase(),
+                           );
+                           if (!used) return null;
 
-                                          {skill.image ? (
-                                             <img
-                                                src={skill.image}
-                                                alt={skill.name}
-                                                className="w-7 h-7 top-0 mt-6.5 z-10 transition-transform duration-300"
-                                             />
-                                          ) : (
-                                             <i
-                                                className={`fa-brands fa-${skill.name} text-2xl z-10 mt-7`}
-                                                style={{
-                                                   color: getColor(skill.name),
-                                                }}></i>
-                                          )}
-                                       </div>
-                                    );
-                                 })}
+                           return (
+                              <div
+                                 key={idx}
+                                 className="px-3 py-1 rounded-full text-xs
+                      bg-white/10 border border-white/10
+                      text-gray-200">
+                                 {skill.name}
                               </div>
-                           </div>
-                        </div>
+                           );
+                        })}
                      </div>
-                     <div
-                        className="absolute w-full h-full backface-hidden flex-1 flex-col items-center text-lg font-semibold rotate-y-180 glass-card group rounded-2xl backdrop-blur-lg bg-[#282828] border border-white/10 shadow-2xl shadow-black/50 hover:cursor-pointer transition-transform duration-300"
-                        style={{ backfaceVisibility: 'hidden' }}>
-                        <h2 className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 text-transparent bg-clip-text mb-2 text-center">
-                           <div className="w-full h-1.5 absolute top-0 left-0 bg-gradient-to-r from-blue-500 to-purple-500"></div>
-                        </h2>
 
-                        <div>
-                           <div className="flex items-center gap-2">
-                              {
-                                 <i
-                                    className={`fa-brands fa-github text-4xl p-4 z-10`}></i>
-                              }
-                              <p>{data.name}</p>
-                           </div>
-                           <div className="mx-12">
-                              <p className="flex items-center gap-4 w-full border p-3 rounded-3xl bg-white/10 backdrop-blur-lg">
-                                 <p className="text-[16px] line-clamp-6">
-                                    {data.description}
-                                 </p>
-                              </p>
-                           </div>
-                        </div>
+                     {/* LONG DESCRIPTION */}
+                     <p className="text-sm text-gray-300 mt-6 line-clamp-3">
+                        {item.description}
+                     </p>
+
+                     {/* ACTIONS */}
+                     <div className="mt-auto flex justify-center gap-4">
+                        <a
+                           href={item.link}
+                           target="_blank"
+                           rel="noreferrer"
+                           className="px-4 py-2 rounded-lg
+                  bg-gradient-to-r from-indigo-500 to-purple-500
+                  text-white text-sm hover:scale-105 transition">
+                           GitHub
+                        </a>
+
+                        {item.demo && (
+                           <a
+                              href={item.demo}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="px-4 py-2 rounded-lg
+                    bg-white/10 text-white text-sm
+                    hover:bg-white/20 transition">
+                              Live Demo
+                           </a>
+                        )}
                      </div>
-                  </motion.div>
-               </div>
+                  </div>
+               </motion.div>
             ))}
          </div>
 
-         {isSmallScreen || itemsPerPage >= 4 && ( 
-            <div>
+         {/* NAVIGATION */}
+         {!isSmall && (
+            <>
                <button
-                  onClick={handlePrev}
-                  className="absolute top-1/2 left-2 -translate-y-1/2 bg-white/80 hover:scale-125 p-2 rounded-full text-xl text-gray-800 shadow-lg z-10 hover:cursor-pointer transition-transform duration-300">
+                  onClick={() =>
+                     setPage((p) => (p - 1 + totalPages) % totalPages)
+                  }
+                  className="absolute -left-5 top-1/2 -translate-y-1/2
+            text-3xl text-white/80 hover:scale-125 transition">
                   <FaArrowAltCircleLeft />
                </button>
+
                <button
-                  onClick={handleNext}
-                  className="absolute top-1/2 right-2 -translate-y-1/2 bg-white/80 hover:scale-125 p-2 rounded-full text-xl text-gray-800 shadow-lg z-10 hover:cursor-pointer transition-transform duration-300">
+                  onClick={() => setPage((p) => (p + 1) % totalPages)}
+                  className="absolute -right-5 top-1/2 -translate-y-1/2
+            text-3xl text-white/80 hover:scale-125 transition">
                   <FaArrowAltCircleRight />
                </button>
-            </div>
+            </>
          )}
-
-         <div className="flex justify-center mt-4 gap-2">
-            {Array.from({ length: totalPages }).map((_, i) => (
-               <div
-                  key={i}
-                  className={`w-3 h-3 rounded-full cursor-pointer ${
-                     i === page ? 'bg-gray-800' : 'bg-gray-400'
-                  }`}
-                  onClick={() => setPage(i)}
-               />
-            ))}
-         </div>
       </div>
    );
 };
