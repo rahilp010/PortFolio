@@ -89,7 +89,7 @@ export default function Portfolio() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.2 }}
-                  className="text-2xl md:text-4xl font-light tracking-wide">
+                  className="text-3xl md:text-4xl font-light tracking-wide">
                   Hey, I'm{' '}
                   <span className="font-semibold font-serif leading-[1.2]">
                      <motion.span
@@ -103,7 +103,7 @@ export default function Portfolio() {
                </motion.p>
 
                <div className="space-y-2">
-                  <h1 className="text-3xl md:text-7xl lg:text-[88px] font-serif leading-[0.9]">
+                  <h1 className="text-4xl md:text-7xl lg:text-[88px] font-serif leading-[0.9]">
                      <motion.span
                         initial={{ y: 100, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
