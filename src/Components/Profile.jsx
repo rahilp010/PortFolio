@@ -89,7 +89,7 @@ export default function Portfolio() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.2 }}
-                  className="text-xl md:text-4xl font-light tracking-wide">
+                  className="text-2xl md:text-4xl font-light tracking-wide">
                   Hey, I'm{' '}
                   <span className="font-semibold font-serif leading-[1.2]">
                      <motion.span
@@ -103,7 +103,7 @@ export default function Portfolio() {
                </motion.p>
 
                <div className="space-y-2">
-                  <h1 className="text-6xl md:text-7xl lg:text-[88px] font-serif leading-[0.9]">
+                  <h1 className="text-3xl md:text-7xl lg:text-[88px] font-serif leading-[0.9]">
                      <motion.span
                         initial={{ y: 100, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
@@ -225,21 +225,21 @@ export default function Portfolio() {
             ref={contactRef}>
             <AnimatedText
                text="CONTACT ME"
-               className="text-5xl md:text-7xl mb-20 text-center"
+               className="text-4xl md:text-7xl mb-20 text-center"
             />
             <div className="grid md:grid-cols-2 gap-12" id="contact">
                <div>
                   <AnimatedText
                      text="LET'S"
-                     className="text-5xl md:text-7xl text-[#EBE9E4] mb-4"
+                     className="text-4xl md:text-7xl text-[#EBE9E4] mb-4"
                   />
                   <AnimatedText
                      text="WORK"
-                     className="text-5xl md:text-7xl text-[#EBE9E4] mb-4"
+                     className="text-4xl md:text-7xl text-[#EBE9E4] mb-4"
                   />
                   <AnimatedText
                      text="TOGETHER"
-                     className="text-5xl md:text-7xl text-[#EBE9E4] italic"
+                     className="text-4xl md:text-7xl text-[#EBE9E4] italic"
                   />
 
                   <div className="mt-12 space-y-6 text-black">
