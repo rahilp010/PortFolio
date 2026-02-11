@@ -436,8 +436,8 @@ const ProjectCard = ({ project, index }) => {
          {/* Text/Artistic Side (Replaces Image) */}
          <div
             className={`w-full md:w-1/2 pl-12 md:pl-0 ${isEven ? 'md:pl-20' : 'md:pr-20'}`}>
-            <div className="group relative overflow-hidden rounded-2xl h-[300px] md:h-[400px] w-full border border-stone-300 bg-[#E5E3DE] flex items-center justify-center p-6 hover:bg-stone-300 transition-colors duration-700 cursor-pointer">
-               <Link to={project.link} target="_blank">
+            <Link to={project.link} target="_blank">
+               <div className="group relative overflow-hidden rounded-2xl h-[300px] md:h-[400px] w-full border border-stone-300 bg-[#E5E3DE] flex items-center justify-center p-6 hover:bg-stone-300 transition-colors duration-700 cursor-pointer">
                   {/* Decorative Circle Background */}
                   <div className="absolute w-64 h-64 bg-stone-400/10 rounded-full blur-3xl group-hover:bg-stone-400/20 transition-all duration-700" />
 
@@ -456,8 +456,8 @@ const ProjectCard = ({ project, index }) => {
                   <div className="absolute bottom-8.5 transition-all duration-700 text-xs uppercase tracking-[0.2em] text-stone-800">
                      View Project
                   </div>
-               </Link>
-            </div>
+               </div>
+            </Link>
          </div>
       </motion.div>
    );
