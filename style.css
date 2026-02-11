@@ -104,3 +104,23 @@ html {
       background-image: url('/PortFolio/src/assets/contact-me.png');
    }
 }
+
+.customScrollbar {
+   overflow-y: auto;
+   overflow-x: auto;
+}
+
+.customScrollbar::-webkit-scrollbar {
+   width: 4px;
+   height: 8px;
+}
+
+.customScrollbar::-webkit-scrollbar-track {
+   background: white;
+   border-radius: 9999px;
+}
+
+.customScrollbar::-webkit-scrollbar-thumb {
+   background: #292524;
+   border-radius: 9999px;
+}

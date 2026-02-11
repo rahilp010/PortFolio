@@ -1,5 +1,5 @@
-import React, { forwardRef, useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import React, { forwardRef, useRef, useState } from 'react';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import {
    ArrowUpRight,
    Mail,
@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router';
 import mine from '../assets/mine.jpg';
+import emailjs from '@emailjs/browser';
 
 // --- Components ---
 
@@ -48,6 +49,22 @@ export default function Portfolio() {
    const contactRef = useRef(null);
    const workRef = useRef(null);
 
+   const [formData, setFormData] = useState({
+      name: '',
+      email: '',
+      message: '',
+   });
+   const [errors, setErrors] = useState({});
+   const [submitStatus, setSubmitStatus] = useState(null);
+   const [isSubmitting, setIsSubmitting] = useState(false);
+
+   const handleInputChange = (e) => {
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
+      // Clear error when user starts typing
+      if (errors[name]) setErrors({ ...errors, [name]: null });
+   };
+
    const handleScrollContact = () => {
       contactRef.current?.scrollIntoView({
          behavior: 'smooth',
@@ -62,8 +79,63 @@ export default function Portfolio() {
       });
    };
 
+   const validateForm = () => {
+      let newErrors = {};
+      if (!formData.name.trim()) newErrors.name = 'Name is required';
+
+      if (!formData.email.trim()) {
+         newErrors.email = 'Email is required';
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+         newErrors.email = 'Please enter a valid email';
+      }
+
+      if (!formData.message.trim())
+         newErrors.message = 'Message cannot be empty';
+
+      return newErrors;
+   };
+
+   const handleSubmit = async (e) => {
+      e.preventDefault();
+      const validationErrors = validateForm();
+
+      if (Object.keys(validationErrors).length > 0) {
+         setErrors(validationErrors);
+         return; // Stop here if there are errors
+      }
+
+      setIsSubmitting(true);
+      setSubmitStatus(null);
+
+      try {
+         const serviceID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+         const templateID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+         const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+         await emailjs.send(
+            serviceID,
+            templateID,
+            {
+               name: formData.name,
+               email: formData.email,
+               message: formData.message,
+            },
+            publicKey,
+         );
+
+         setSubmitStatus('success');
+         setFormData({ name: '', email: '', message: '' });
+      } catch (error) {
+         console.error('EmailJS Error:', error);
+         setSubmitStatus('error');
+      } finally {
+         setIsSubmitting(false);
+         setTimeout(() => setSubmitStatus(null), 5000);
+      }
+   };
+
    return (
-      <div className="bg-[#EBE9E4] max-h-screen overflow-y-auto text-stone-800 font-sans selection:bg-stone-300">
+      <div className="bg-[#EBE9E4] min-h-screen text-stone-800 font-sans selection:bg-stone-300 customScrollbar">
          {/* Top Progress Bar */}
          <motion.div
             className="fixed top-0 left-0 right-0 h-1 bg-stone-900 origin-left z-50"
@@ -221,12 +293,13 @@ export default function Portfolio() {
 
          {/* 4. CONTACT ME */}
          <Section
-            className="bg-stone-400 text-[#EBE9E4] rounded-t-[3rem] pb-2"
+            className="bg-stone-400 text-[#2d2d2d] rounded-t-[3rem] pb-2"
             ref={contactRef}>
             <AnimatedText
                text="CONTACT ME"
                className="text-4xl md:text-7xl mb-20 text-center"
             />
+
             <div className="grid md:grid-cols-2 gap-12" id="contact">
                <div>
                   <AnimatedText
@@ -243,7 +316,7 @@ export default function Portfolio() {
                   />
 
                   <div className="mt-12 space-y-6 text-black">
-                     <p className="text-xl">surat, gujarat, india</p>
+                     <p className="text-xl">Surat Gujarat, India</p>
                      <p className="text-xl">rahilp704@gmail.com</p>
                      <div className="flex gap-4 mt-8">
                         <SocialLink
@@ -256,38 +329,74 @@ export default function Portfolio() {
                   </div>
                </div>
 
-               <form className="space-y-8 mt-12 md:mt-0">
-                  <div className="border-b border-stone-700 pb-4">
+               <form
+                  className="space-y-8 mt-12 md:mt-0"
+                  onSubmit={handleSubmit}>
+                  <div className="border-b border-stone-700 pb-4 relative">
                      <label className="block text-sm uppercase tracking-widest text-stone-500 mb-2">
                         Your Name
                      </label>
                      <input
                         type="text"
-                        className="w-full bg-transparent text-2xl outline-none placeholder-stone-600"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        className={`w-full bg-transparent text-2xl outline-none placeholder-stone-600 ${errors.name ? 'border-red-500 text-red-200' : ''}`}
                         placeholder="John Doe"
                      />
+                     {errors.name && (
+                        <span className="text-red-800 text-sm absolute -bottom-6 left-0">
+                           {errors.name}
+                        </span>
+                     )}
                   </div>
-                  <div className="border-b border-stone-700 pb-4">
+
+                  <div className="border-b border-stone-700 pb-4 relative mt-8">
                      <label className="block text-sm uppercase tracking-widest text-stone-500 mb-2">
                         Your Email
                      </label>
                      <input
                         type="email"
-                        className="w-full bg-transparent text-2xl outline-none placeholder-stone-600"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        className={`w-full bg-transparent text-2xl outline-none placeholder-stone-600 ${errors.email ? 'border-red-500 text-red-200' : ''}`}
                         placeholder="john@example.com"
                      />
+                     {errors.email && (
+                        <span className="text-red-800 text-sm absolute -bottom-6 left-0">
+                           {errors.email}
+                        </span>
+                     )}
                   </div>
-                  <div className="border-b border-stone-700 pb-4">
+
+                  <div className="border-b border-stone-700 pb-4 relative mt-8">
                      <label className="block text-sm uppercase tracking-widest text-stone-500 mb-2">
                         Message
                      </label>
                      <textarea
+                        name="message"
+                        value={formData.message}
+                        onChange={handleInputChange}
                         rows="3"
-                        className="w-full bg-transparent text-2xl outline-none placeholder-stone-600 resize-none"
+                        className={`w-full bg-transparent text-2xl outline-none placeholder-stone-600 resize-none ${errors.message ? 'border-red-500 text-red-200' : ''}`}
                         placeholder="Tell me about your project..."></textarea>
+                     {errors.message && (
+                        <span className="text-red-800 text-sm absolute -bottom-6 left-0">
+                           {errors.message}
+                        </span>
+                     )}
                   </div>
-                  <button className="w-full py-6 bg-[#EBE9E4] text-stone-900 text-xl font-bold rounded-full hover:bg-stone-300 transition-colors">
-                     Send Message
+
+                  <button
+                     type="submit"
+                     disabled={isSubmitting}
+                     className="w-full py-6 bg-[#EBE9E4] text-stone-900 text-xl font-bold rounded-full hover:bg-stone-300 transition-colors mt-8 disabled:opacity-50">
+                     {isSubmitting
+                        ? 'Sending...'
+                        : submitStatus === 'success'
+                          ? 'Message Sent!'
+                          : 'Send Message'}
                   </button>
                </form>
             </div>
@@ -327,21 +436,27 @@ const ProjectCard = ({ project, index }) => {
          {/* Text/Artistic Side (Replaces Image) */}
          <div
             className={`w-full md:w-1/2 pl-12 md:pl-0 ${isEven ? 'md:pl-20' : 'md:pr-20'}`}>
-            <div className="group relative overflow-hidden rounded-2xl h-[300px] md:h-[400px] w-full border border-stone-300 bg-[#E5E3DE] flex items-center justify-center p-6 hover:bg-stone-300 transition-colors duration-700">
-               {/* Decorative Circle Background */}
-               <div className="absolute w-64 h-64 bg-stone-400/10 rounded-full blur-3xl group-hover:bg-stone-400/20 transition-all duration-700" />
+            <div className="group relative overflow-hidden rounded-2xl h-[300px] md:h-[400px] w-full border border-stone-300 bg-[#E5E3DE] flex items-center justify-center p-6 hover:bg-stone-300 transition-colors duration-700 cursor-pointer">
+               <Link to={project.link} target="_blank">
+                  {/* Decorative Circle Background */}
+                  <div className="absolute w-64 h-64 bg-stone-400/10 rounded-full blur-3xl group-hover:bg-stone-400/20 transition-all duration-700" />
 
-               {/* Cursive Text */}
-               <span className="relative z-10 font-['Mrs_Saint_Delafield'] text-8xl md:text-[130px] font-boldtext-stone-800 text-center leading-tight transform group-hover:scale-110 transition-transform duration-700 cursor-default">
-                  {project.name}
-               </span>
-
-               {/* Optional: 'View' text appears on hover below the cursive title */}
-               <div className="absolute bottom-8 opacity-0 group-hover:opacity-900 transition-opacity duration-500">
-                  <span className="text-xs uppercase tracking-[0.2em] text-stone-800">
-                     View Project
+                  {/* Cursive Text */}
+                  <span className="relative z-10 font-['Mrs_Saint_Delafield'] text-8xl md:text-[130px] font-boldtext-stone-800 text-center leading-tight transform group-hover:scale-110 transition-transform duration-700 cursor-default">
+                     {project.name}
                   </span>
-               </div>
+
+                  {/* Optional: 'View' text appears on hover below the cursive title */}
+                  <div className="absolute bottom-8 opacity-0 group-hover:opacity-900 transition-opacity duration-500">
+                     <span className="text-xs uppercase tracking-[0.2em] text-stone-800">
+                        View Project
+                     </span>
+                  </div>
+
+                  <div className="absolute bottom-8.5 transition-all duration-700 text-xs uppercase tracking-[0.2em] text-stone-800">
+                     View Project
+                  </div>
+               </Link>
             </div>
          </div>
       </motion.div>
@@ -392,12 +507,14 @@ const projects = [
       tech: 'React-Native • Node.js • MongoDB',
       desc: 'Envy is a mobile application that helps small businesses manage their inventory.',
       name: 'envy',
+      link: 'https://github.com/rahilp010/envy',
    },
    {
       title: 'Electron - Inventory for desktop',
       tech: 'Electron.js • SQLite • MongoDB',
       desc: 'Electron is a Desktop offline application so your data is on your handle not on cloud.',
       name: 'electron',
+      link: 'https://github.com/rahilp010/electron',
    },
    //    {
    //       title: 'Travel App UI',
