@@ -503,6 +503,13 @@ const skills = [
 
 const projects = [
    {
+      title: 'GenFeed - Discover, Share, and Monetize AI Prompts',
+      tech: 'Next.js • Node.js • Supabase • MongoDB • Tailwind',
+      desc: 'The premier social marketplace for AI prompts. Find, share, and monetize prompt engineering creations for ChatGPT, Midjourney, Stable Diffusion, and more.',
+      name: 'GenFeed',
+      link: 'https://genfeed.in',
+   },
+   {
       title: 'ENVY - Inventory Management App',
       tech: 'React-Native • Node.js • MongoDB',
       desc: 'Envy is a mobile application that helps small businesses manage their inventory.',
