@@ -428,7 +428,7 @@ const ProjectCard = ({ project, index }) => {
             </span>
             <h3 className="text-3xl font-bold mb-2">{project.title}</h3>
             <p className="text-stone-600 mb-4">{project.tech}</p>
-            <p className="text-stone-500 leading-relaxed max-w-sm ml-auto mr-auto md:mx-0">
+            <p className="text-stone-500 leading-relaxed  ml-auto mr-auto md:mx-0">
                {project.desc}
             </p>
          </div>
@@ -522,6 +522,27 @@ const projects = [
       desc: 'Electron is a Desktop offline application so your data is on your handle not on cloud.',
       name: 'electron',
       link: 'https://github.com/rahilp010/electron',
+   },
+   {
+      title: 'Envy Sync',
+      tech: 'React-Native • Node.js • SQLite',
+      desc: 'Envy Sync is a mobile application that helps you sync your data between Desktop App & Mobile.',
+      name: 'envy-sync',
+      link: 'https://github.com/rahilp010/Envy-Sync',
+   },
+   {
+      title: 'Banky',
+      tech: 'React Native • SQLite ',
+      desc: 'Banky is an app that helps you manage your expenses.',
+      name: 'Banky',
+      link: 'https://github.com/rahilp010/Banky',
+   },
+   {
+      title: 'Klique',
+      tech: 'React.Js • AI • Tailwind',
+      desc: 'Klique is provided all tools you need in daily basis including AI Tools.',
+      name: 'Klique',
+      link: 'https://klique.netlify.app',
    },
    //    {
    //       title: 'Travel App UI',
