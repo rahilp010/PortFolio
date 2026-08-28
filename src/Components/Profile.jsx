@@ -9,7 +9,7 @@ import {
    Database,
    Layout,
 } from 'lucide-react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import mine from '../assets/mine.jpg';
 import emailjs from '@emailjs/browser';
 
@@ -323,8 +323,14 @@ export default function Portfolio() {
                            icon={<Github />}
                            link="https://github.com/rahilp010"
                         />
-                        <SocialLink icon={<Linkedin />} />
-                        <SocialLink icon={<Mail />} />
+                        <SocialLink 
+                           icon={<Linkedin />} 
+                           link="https://linkedin.com/in/rahilp010"
+                        />
+                        <SocialLink 
+                           icon={<Mail />} 
+                           link="https://mail.google.com/mail/?view=cm&fs=1&to=rahilp704@gmail.com"
+                        />
                      </div>
                   </div>
                </div>
