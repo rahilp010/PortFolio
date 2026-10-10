@@ -1,11 +1,7 @@
-import Profile from './Components/Profile';
+import PortfolioPage from './Components/PortfolioPage';
 
 const App = () => {
-   return (
-      <>
-         <Profile />
-      </>
-   );
+   return <PortfolioPage />;
 };
 
 export default App;
